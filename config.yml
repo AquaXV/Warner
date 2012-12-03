@@ -1,0 +1,14 @@
+Warning1:
+    - kick
+    - 2
+Warning2:
+    - tempban
+    - 4
+    - 3
+Warning3:
+    - tempban
+    - 5
+    - 3
+Warning4:
+    - ban
+    - 6

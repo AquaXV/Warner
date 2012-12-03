@@ -1,0 +1,108 @@
+name: Warner
+main: com.aquaxv.warn.Warn
+description: Warn players with ease.
+author: AquaXV, M0P
+version: 2.5.7
+commands:
+    warn:
+permissions:
+    warner.*:
+        description: Grant all permissions.
+        children:
+            warner.warn.give: true
+            warner.warn.take: true
+            warner.user.lookup.self: true
+            warner.user.lookup.other: true
+            warner.user.help: true
+            warner.admin.warn.set: true
+            warner.admin.warn.reset: true
+            warner.admin.warn.exempt: true
+            warner.admin.reload: true
+            warner.other.version: true
+            warner.other.notify: true
+            warner.warn.kick: true
+            warner.warn.tempban: true
+            warner.warn.ban: true
+    warner.user.lookup.*:
+        description: Grant all lookup commands (lookup)
+        children:
+            warner.user.lookup.self: true
+            warner.user.lookup.other: true
+    warner.user.*:
+        description: Grant all user commands (lookup and help)
+        children:
+            warner.user.lookup.self: true
+            warner.user.lookup.other: true
+            warner.user.help: true
+    warner.warn.*:
+        description: Grant all warning commands (warn and warn take)
+        children:
+            warner.warn.give: true
+            warner.warn.take: true
+    warner.other.*:
+        description: Grant all other commands (version and notify (Suggested to give to all staff))
+        children:
+            warner.other.version: true
+            warner.other.notify: true
+    warner.punish.*:
+        description: Grant access to punishing with warnings
+        children:
+            warner.punish.jail: true
+            warner.punish.kick: true
+            warner.punish.tempban: true
+            warner.punish.ban: true
+    warner.admin.*:
+        description: Grant all Admin commands (reload, warn set, warn reset and warn exempt)
+        children:
+            warner.admin.reload: true
+            warner.admin.warn.set: true
+            warner.admin.warn.reset: true
+            warner.admin.warn.exempt: true
+    warner.warn.give:
+        description: Grants use to /warn
+        default: op
+    warner.warn.take:
+        description: Grants use to /warn take
+        default: op
+    warner.user.lookup.self:
+        description: Grants use to /warn lookup
+        default: op
+    warner.user.lookup.other:
+        description: Grants use to /warn lookup
+        default: op
+    warner.user.lookup:
+        description: Grants use to /warn lookup
+        default: op
+    warner.user.help:
+        description: Grants use to /warn help
+        default: op
+    warner.admin.warn.set:
+        description: Grants use to /warn set
+        default: op
+    warner.admin.warn.reset:
+        description: Grants use to /warn reset
+        default: op
+    warner.admin.warn.exempt:
+        description: Prevents user from receiving warnings
+        default: op
+    warner.admin.reload:
+        description: Grants use to /warn reload
+        default: op
+    warner.other.version:
+        description: Grants use to /warn version
+        default: op
+    warner.other.notify:
+        description: Shows all warnings to users with this permission node
+        default: op
+    warner.punish.jail:
+        description: Allows /warn executor to also give out punishment.
+        default: op
+    warner.punish.kick:
+        description: Allows /warn executor to also give out punishment.
+        default: op
+    warner.punish.tempban:
+        description: Allows /warn executor to also give out punishment.
+        default: op
+    warner.punish.ban:
+        description: Allows /warn executor to also give out punishment.
+        default: op
