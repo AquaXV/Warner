@@ -23,7 +23,7 @@ import com.earth2me.essentials.IEssentials;
 import com.earth2me.essentials.commands.Commandtempban;
 
 public class Punisher {
-
+//Test
 	private static final Server Server = Bukkit.getServer();
 	int Warnings;
 	static Command kick = new KickCommand();
