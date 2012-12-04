@@ -30,6 +30,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import com.minecraftserver.warn.Punisher;
+import com.minecraftserver.warn.SLAPI;
 
 public class Warn extends JavaPlugin {
 
@@ -67,7 +68,7 @@ public class Warn extends JavaPlugin {
 	// End args[] to String
 
 	public String Version() {
-		return "2.5.7";
+		return "2.5.10";
 	}
 
 	public String Author() {
@@ -197,7 +198,7 @@ public class Warn extends JavaPlugin {
 							int number=Integer.parseInt(args[2]);
 						    warnings_player.remove(number - 1);
 						} catch (Exception e) {
-							sender.sendMessage(ChatColor.BLUE + "There is no warning " + ChatColor.GOLD + args[2] + ChatColor.BLUE + ".");
+							sender.sendMessage(ChatColor.BLUE + "There is no warning number " + ChatColor.GOLD + args[2] + ChatColor.BLUE + ".");
 							return false;
 						}
 					}

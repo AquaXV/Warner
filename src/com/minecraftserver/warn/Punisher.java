@@ -18,12 +18,8 @@ import org.bukkit.command.defaults.KickCommand;
 import org.bukkit.command.defaults.BanCommand;
 import org.bukkit.configuration.file.YamlConfiguration;
 
-import com.earth2me.essentials.Essentials;
-import com.earth2me.essentials.IEssentials;
-import com.earth2me.essentials.commands.Commandtempban;
-
 public class Punisher {
-//Test
+
 	private static final Server Server = Bukkit.getServer();
 	int Warnings;
 	static Command kick = new KickCommand();
@@ -32,9 +28,6 @@ public class Punisher {
 	static Command jail = Bukkit.getPluginCommand("jail");
 	static Command mute = Bukkit.getPluginCommand("mute");
 	static CommandSender Console = (Bukkit.getServer().getConsoleSender());
-
-	// private static IEssentials essentials;
-	// static SLAPI SLAPI = new SLAPI();
 
 	public static boolean punish(Player target, int warnings, String reason, CommandSender sender, YamlConfiguration config) {
 		String playername = target.getName();
