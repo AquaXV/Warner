@@ -1,14 +1,13 @@
-Warning1:
-    - kick
-    - 2
-Warning2:
-    - tempban
-    - 4
-    - 3
-Warning3:
-    - tempban
-    - 5
-    - 3
-Warning4:
-    - ban
-    - 6
+Warning:
+    3:
+        command: kick
+    4:
+        command: kick
+    5:
+        command: tempban
+        duration: 3 day
+    6:
+        command: tempban
+        duration: 7 day
+    7:
+        command: ban
