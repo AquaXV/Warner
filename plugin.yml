@@ -1,5 +1,5 @@
 name: Warner
-main: com.aquaxv.warn.Warn
+main: com.minecraftserver.warn.Warn
 description: Warn players with ease.
 author: AquaXV, M0P
 version: 2.5.10
