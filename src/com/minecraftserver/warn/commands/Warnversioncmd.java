@@ -7,9 +7,7 @@ import com.minecraftserver.warn.Warner;
 
 public class Warnversioncmd extends WarnCommandHandler {
 	
-	static Warner warner;
-	
-	public static boolean run(CommandSender sender) {
+	public static boolean run(CommandSender sender, Warner warner) {
 		
 		if (!sender.hasPermission("warner.other.version")) {
 			sender.sendMessage(ChatColor.DARK_RED + "You have insufficient permissions to do this.");

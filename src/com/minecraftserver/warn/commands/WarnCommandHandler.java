@@ -43,7 +43,7 @@ public class WarnCommandHandler {
         } else if (args[0].equalsIgnoreCase("reset")) {
             Warnresetcmd.run(sender, args, warner);
         } else if (args[0].equalsIgnoreCase("version")) {
-            Warnversioncmd.run(sender);
+            Warnversioncmd.run(sender, warner);
         } else if (args[0].equalsIgnoreCase("reload")) {
             Warnreloadcmd.run(sender, warner);
         } else {
