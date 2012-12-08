@@ -15,7 +15,7 @@ public class Warnversioncmd extends WarnCommandHandler {
 			sender.sendMessage(ChatColor.DARK_RED + "You have insufficient permissions to do this.");
 			return false;
 		}
-		sender.sendMessage("Version: " + warner.getVersion() + "\n" + warner.getAuthor());
+		sender.sendMessage(ChatColor.BLUE + "Version: " + ChatColor.GOLD + ChatColor.UNDERLINE + warner.getVersion() + ChatColor.RESET + "\n" + ChatColor.BLUE + warner.getAuthor());
 		return true;
 		
 	}

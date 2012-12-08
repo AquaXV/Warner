@@ -64,11 +64,11 @@ public class Warner extends JavaPlugin {
     }
 
     public String getVersion() {
-        return "ChatColor.GOLD + \"3.0.0\"";
+        return "3.0.3";
     }
 
     public String getAuthor() {
-        return "ChatColor.BLUE + \"Made by AquaXV and M0P.\nThanks to DarkMagician6 and ProForYou for helping testing.\nAnd not to forget Bukkit ofcourse.\"";
+        return "Made by AquaXV and M0P.\nThanks to DarkMagician6 and ProForYou for helping testing.\nAnd not to forget Bukkit ofcourse.";
     }
 
     public boolean onCommand(CommandSender cmdsender, Command cmd, String label, String[] args) {

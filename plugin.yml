@@ -2,7 +2,7 @@ name: Warner
 main: com.minecraftserver.warn.Warner
 description: Warn players with ease.
 author: AquaXV, M0P
-version: 3.0.01
+version: 3.0.3
 commands:
     warn:
 permissions:
