@@ -9,14 +9,16 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import com.minecraftserver.warn.SLAPI;
+import com.minecraftserver.warn.Warner;
 
 public class Warntakecmd extends WarnCommandHandler {
 	
 	static List<String[]> warnings_player = new Vector<String[]>();
 	static int warn_amount;
-    static SLAPI slapi;
 	
-	public static boolean run(CommandSender sender, String[] args) {
+	public static boolean run(CommandSender sender, String[] args, Warner warner) {
+
+	    SLAPI slapi=warner.getSLAPI();
 		
 		Player target = (Bukkit.getServer().getPlayer(args[1]));
 		

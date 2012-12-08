@@ -9,16 +9,11 @@ import org.bukkit.command.CommandSender;
 import com.minecraftserver.warn.SLAPI;
 import com.minecraftserver.warn.Warner;
 
-public class Warnreloadcmd extends WarnCommandHandler {
+public class Warnreloadcmd {
 	
-	static Warner warner;
-	static SLAPI slapi;
-	static JavaPlugin JP;
 
-	public static boolean run(CommandSender sender) {
-		
-		File configFile;
-		
+	public static boolean run(CommandSender sender, Warner warner) {
+	    
 		if (!sender.hasPermission("warner.admin.reload")) {
 			sender.sendMessage(ChatColor.DARK_RED + "You have insufficient permissions to do this.");
 			return false;

@@ -33,42 +33,48 @@ import com.minecraftserver.warn.Punisher;
 import com.minecraftserver.warn.SLAPI;
 import com.minecraftserver.warn.commands.WarnCommandHandler;
 
-public class Warner extends JavaPlugin{
-	
-	private File configFile;
+public class Warner extends JavaPlugin {
 
-	protected static YamlConfiguration config = new YamlConfiguration();
-	String[] args;
-	SLAPI slapi;
+    private File              configFile;
+    private YamlConfiguration config = new YamlConfiguration();
+    private SLAPI             slapi;
 
-	@Override
-	public void onEnable() {
-		getLogger().info("Warner has been enabled!");
-		if (!getDataFolder().exists()) getDataFolder().mkdir();
-		File playerfolder = new File(getDataFolder(), File.separator + "player_warnings");
-		if (!playerfolder.exists()) playerfolder.mkdir();
-		slapi = new SLAPI(getDataFolder());
-		configFile = new File(getDataFolder(), "config.yml");
-		config = slapi.loadYamls(configFile);
-	}
+    @Override
+    public void onEnable() {
+        getLogger().info("Warner has been enabled!");
+        if (!getDataFolder().exists()) getDataFolder().mkdir();
+        File playerfolder = new File(getDataFolder(), File.separator + "player_warnings");
+        if (!playerfolder.exists()) playerfolder.mkdir();
+        slapi = new SLAPI(getDataFolder());
+        configFile = new File(getDataFolder(), "config.yml");
+        config = slapi.loadYamls(configFile);
+    }
 
-	@Override
-	public void onDisable() {
-		getLogger().info("Warner has been disabled!");
-	}
-	
-	public String Version() {
-		return "ChatColor.GOLD + \"3.0.0\"";
-	}
+    @Override
+    public void onDisable() {
+        getLogger().info("Warner has been disabled!");
+    }
 
-	public String Author() {
-		return "ChatColor.BLUE + \"Made by AquaXV and M0P.\nThanks to DarkMagician6 and ProForYou for helping testing.\nAnd not to forget Bukkit ofcourse.\"";
-	}
-		
-	public boolean onCommand(CommandSender cmdsender, Command cmd, String label, String[] args) {
-		WarnCommandHandler Wcmd = new WarnCommandHandler();
-		Wcmd.WarnCommand(cmdsender, cmd, label, args);
-		return true;
-	}
-		
+    public SLAPI getSLAPI() {
+        return slapi;
+    }
+
+    public YamlConfiguration getConfig() {
+        return config;
+    }
+
+    public String getVersion() {
+        return "ChatColor.GOLD + \"3.0.0\"";
+    }
+
+    public String getAuthor() {
+        return "ChatColor.BLUE + \"Made by AquaXV and M0P.\nThanks to DarkMagician6 and ProForYou for helping testing.\nAnd not to forget Bukkit ofcourse.\"";
+    }
+
+    public boolean onCommand(CommandSender cmdsender, Command cmd, String label, String[] args) {
+        WarnCommandHandler wcmd = new WarnCommandHandler();
+        wcmd.executeWarnCommand(cmdsender, cmd, label, args, this);
+        return true;
+    }
+
 }

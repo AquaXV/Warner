@@ -10,14 +10,13 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 
 import com.minecraftserver.warn.SLAPI;
+import com.minecraftserver.warn.Warner;
 
 public class Warnlookupcmd extends WarnCommandHandler {
-	
-	static SLAPI slapi;
 	static List<String[]> warnings_player = new Vector<String[]>();
 
-	public static boolean run(CommandSender sender, String[] args) {
-		
+	public static boolean run(CommandSender sender, String[] args, Warner warner) {
+		SLAPI slapi=warner.getSLAPI();
 		Player target;
 		
 		if (args.length < 2){
