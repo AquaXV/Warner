@@ -29,6 +29,9 @@ public class Punisher {
 	static Command mute = Bukkit.getPluginCommand("mute");
 	static CommandSender Console = (Bukkit.getServer().getConsoleSender());
 
+	// private static IEssentials essentials;
+	// static SLAPI SLAPI = new SLAPI();
+
 	public static boolean punish(Player target, int warnings, String reason, CommandSender sender, YamlConfiguration config) {
 		String playername = target.getName();
 		if (reason == null) {
