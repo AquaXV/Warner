@@ -33,7 +33,7 @@ public class WarnCommandHandler {
         if (args.length == 0) {
             Warnhelpcmd.run(sender);
         } else if (Bukkit.getServer().getPlayer(args[0]) != null) {
-            Warncmd.run(sender, args);
+            Warncmd.run(sender, args, warner);
         } else if (args[0].equalsIgnoreCase("take")) {
             Warntakecmd.run(sender, args, warner);
         } else if (args[0].equalsIgnoreCase("set")) {

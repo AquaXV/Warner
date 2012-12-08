@@ -13,9 +13,10 @@ import org.bukkit.entity.Player;
 
 import com.minecraftserver.warn.Punisher;
 import com.minecraftserver.warn.SLAPI;
+import com.minecraftserver.warn.Warner;
 
-public class Warncmd {
-
+public class Warncmd extends WarnCommandHandler {
+		 
     static SLAPI             slapi;
     static String            reason          = "You have been warned!";
     static List<String[]>    warnings_player = new Vector<String[]>();
@@ -44,8 +45,9 @@ public class Warncmd {
         return dateFormat.format(new Date());
     }
 
-    public static boolean run(CommandSender sender, String[] args) {
+    public static boolean run(CommandSender sender, String[] args, Warner warner) {
 
+    	SLAPI slapi=warner.getSLAPI();
         Player target = Bukkit.getServer().getPlayer(args[0]);
 
         if (!sender.hasPermission("warner.warn.give")) {
