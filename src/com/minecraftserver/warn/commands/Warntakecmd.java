@@ -38,7 +38,7 @@ public class Warntakecmd extends WarnCommandHandler {
 		}
 		
 		// Load player warnings
-		warnings_player = slapi.loadPlayerWarnings(target);
+		warnings_player = slapi.loadPlayerWarnings(target, sender);
 		if (warnings_player != null) {
 			warn_amount = warnings_player.size();
 			if (warn_amount == 0) {

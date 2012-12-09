@@ -71,7 +71,7 @@ public class Warncmd extends WarnCommandHandler {
         }
 
         // Load existing warnings of player
-        warnings_player = slapi.loadPlayerWarnings(target);
+        warnings_player = slapi.loadPlayerWarnings(target, sender);
         if (warnings_player != null) {
             Long time_difference = 20L;
             if (warnings_player.size() > 0) {

@@ -17,6 +17,7 @@ import java.util.logging.Level;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -33,7 +34,7 @@ public class SLAPI {
     	playerfolder = new File(dataFolder, File.separator + "player_warnings");
     }
     
-	public List<String[]> loadPlayerWarnings(Player target) {
+	public List<String[]> loadPlayerWarnings(Player target, CommandSender sender) {
 		try {
 			List<String[]> list;
 			return load(playerfolder + File.separator + target.getName() + ".bin");
@@ -41,12 +42,13 @@ public class SLAPI {
 			List<String[]> list;
 			list = new Vector<String[]>();
 			try {
-				File playerfile=new File(playerfolder, File.separator + target.getName() + ".bin");
+				File playerfile = new File(playerfolder, File.separator + target.getName() + ".bin");
 				if(!playerfile.exists()) playerfile.createNewFile();
 					savePlayerWarnings(list, target);
 				return load(playerfolder + File.separator + target.getName() + ".bin");
 			} catch (Exception e1) {
 				e1.printStackTrace();
+				sender.sendMessage(ChatColor.RED + "Playerfile not found!");
 			}
 			return null;
 		}

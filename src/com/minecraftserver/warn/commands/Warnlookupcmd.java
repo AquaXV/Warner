@@ -39,7 +39,7 @@ public class Warnlookupcmd extends WarnCommandHandler {
 		}
 
 		// Load player warnings
-		warnings_player = slapi.loadPlayerWarnings(target);
+		warnings_player = slapi.loadPlayerWarnings(target, sender);
 		if (warnings_player != null) {
 			// player got no warnings
 			int counter = 1;

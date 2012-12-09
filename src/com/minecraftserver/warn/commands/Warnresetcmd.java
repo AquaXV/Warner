@@ -33,7 +33,7 @@ public class Warnresetcmd {
         }
 
         // Load player warnings
-        warnings_player = slapi.loadPlayerWarnings(target);
+        warnings_player = slapi.loadPlayerWarnings(target, sender);
         if (warnings_player != null) {
             if (warnings_player.size() == 0) {
                 sender.sendMessage(ChatColor.GOLD + target.getName() + ChatColor.BLUE

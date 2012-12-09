@@ -61,7 +61,7 @@ public class Warnsetcmd extends WarnCommandHandler {
         }
 
         // Load player warnings
-        warnings_player = slapi.loadPlayerWarnings(target);
+        warnings_player = slapi.loadPlayerWarnings(target, sender);
         if (warnings_player != null) {
             // if player got more warnings then arg
             while (warnings_player.size() > warn_amount) {
