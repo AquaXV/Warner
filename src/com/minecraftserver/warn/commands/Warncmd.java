@@ -18,6 +18,7 @@ import com.minecraftserver.warn.Warner;
 public class Warncmd extends WarnCommandHandler {
 		 
     static SLAPI             slapi;
+    static Warner			 warner;
     static String            reason          = "You have been warned!";
     static List<String[]>    warnings_player = new Vector<String[]>();
     static YamlConfiguration config          = new YamlConfiguration();
@@ -49,6 +50,7 @@ public class Warncmd extends WarnCommandHandler {
 
     	SLAPI slapi=warner.getSLAPI();
         Player target = Bukkit.getServer().getPlayer(args[0]);
+        YamlConfiguration config = warner.getConfig();
 
         if (!sender.hasPermission("warner.warn.give")) {
             sender.sendMessage(ChatColor.DARK_RED + "You have insufficient permissions to do this.");

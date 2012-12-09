@@ -64,7 +64,7 @@ public class Warner extends JavaPlugin {
     }
 
     public String getVersion() {
-        return "3.0.7";
+        return "3.0.8";
     }
 
     public String getAuthor() {
