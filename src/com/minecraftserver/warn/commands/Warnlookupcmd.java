@@ -5,8 +5,8 @@ import java.util.Vector;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
-import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 
 import com.minecraftserver.warn.SLAPI;
@@ -17,7 +17,7 @@ public class Warnlookupcmd extends WarnCommandHandler {
 
 	public static boolean run(CommandSender sender, String[] args, Warner warner) {
 		SLAPI slapi=warner.getSLAPI();
-		Player target;
+		String target;
 		
 		if (args.length < 2){
 			if (!sender.hasPermission("warner.user.lookup.self")){
@@ -25,7 +25,7 @@ public class Warnlookupcmd extends WarnCommandHandler {
 		    	return false;
 		    }
 		    if(sender instanceof Player){
-		    	target = (Player) sender;
+		    	target = sender.getName();
 		    } else {
 		    	return false;
 		    }
@@ -34,7 +34,14 @@ public class Warnlookupcmd extends WarnCommandHandler {
 		    	sender.sendMessage(ChatColor.DARK_RED + "You have insufficient permissions to do this.");
 		    	return false;
 		    } else {
-		    	target = (Bukkit.getServer().getPlayer(args[1]));
+		    	Player targetOnline = (Bukkit.getServer().getPlayer(args[1]));
+		    	if (targetOnline == null) {
+		    	    OfflinePlayer targetOffline = (Bukkit.getServer().getOfflinePlayer(args[1]));
+		    	    target = targetOffline.getName();
+		    	} else {
+		    	    String targetOnlineStr = (Bukkit.getServer().getPlayer(args[1]).getName());
+		    	    target = targetOnlineStr;
+		    	}
 		    }
 		}
 
@@ -44,7 +51,7 @@ public class Warnlookupcmd extends WarnCommandHandler {
 			// player got no warnings
 			int counter = 1;
 			if (warnings_player.size() == 0) {
-				sender.sendMessage(ChatColor.GOLD + target.getName() + ChatColor.BLUE + " has no warnings.");
+				sender.sendMessage(ChatColor.GOLD + target + ChatColor.BLUE + " has no warnings.");
 				return false;
 			} else
 				for (String[] w : warnings_player) {

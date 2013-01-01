@@ -1,18 +1,9 @@
 package com.minecraftserver.warn;
 
-import java.util.List;
-import java.util.Vector;
-import java.util.logging.Logger;
-
 import org.bukkit.entity.Player;
-import org.bukkit.event.player.PlayerKickEvent;
-import org.bukkit.plugin.Plugin;
-import org.bukkit.Server;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
-import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.defaults.KickCommand;
 import org.bukkit.command.defaults.BanCommand;
@@ -20,7 +11,6 @@ import org.bukkit.configuration.file.YamlConfiguration;
 
 public class Punisher {
 
-	private static final Server Server = Bukkit.getServer();
 	int Warnings;
 	static Command kick = new KickCommand();
 	static Command ban = new BanCommand();
