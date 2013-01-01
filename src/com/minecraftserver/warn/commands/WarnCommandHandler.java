@@ -1,12 +1,10 @@
 package com.minecraftserver.warn.commands;
 
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import com.minecraftserver.warn.commands.*;
 import com.minecraftserver.warn.Warner;
 
 public class WarnCommandHandler {

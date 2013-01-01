@@ -1,12 +1,8 @@
 package com.minecraftserver.warn.commands;
 
-import java.io.File;
-import org.bukkit.plugin.java.JavaPlugin;
-
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 
-import com.minecraftserver.warn.SLAPI;
 import com.minecraftserver.warn.Warner;
 
 public class Warnreloadcmd {

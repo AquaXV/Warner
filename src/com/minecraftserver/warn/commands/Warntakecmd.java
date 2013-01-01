@@ -19,8 +19,7 @@ public class Warntakecmd extends WarnCommandHandler {
 	public static boolean run(CommandSender sender, String[] args, Warner warner) {
 
 	    SLAPI slapi=warner.getSLAPI();
-		
-		Player target = (Bukkit.getServer().getPlayer(args[1]));
+		Player targetPerm = Bukkit.getServer().getPlayer(args[1]);
 		
 		if (!sender.hasPermission("warner.warn.take")) {
 			sender.sendMessage(ChatColor.DARK_RED + "You have insufficient permissions to do this.");
@@ -33,16 +32,17 @@ public class Warntakecmd extends WarnCommandHandler {
 			return false;
 		}
 		
-		if (target == null){
+		if (targetPerm == null){
 			sender.sendMessage(ChatColor.GOLD + args[1] + ChatColor.RED +" was not found online.");
+			return false;
 		}
-		
+		String target = targetPerm.getName();
 		// Load player warnings
 		warnings_player = slapi.loadPlayerWarnings(target, sender);
 		if (warnings_player != null) {
 			warn_amount = warnings_player.size();
 			if (warn_amount == 0) {
-				sender.sendMessage(ChatColor.GOLD + target.getName() + ChatColor.BLUE + " has no warnings, can't take them.");
+				sender.sendMessage(ChatColor.GOLD + target + ChatColor.BLUE + " has no warnings, can't take them.");
 				return false;
 			}
 			
@@ -68,11 +68,11 @@ public class Warntakecmd extends WarnCommandHandler {
 			return false;
 		}
 		
-		target.sendMessage(ChatColor.GOLD + sender.getName() + ChatColor.BLUE + " has removed one of your warnings! " + ChatColor.GOLD + "[" + warnings_player.size() + "]");
+		targetPerm.sendMessage(ChatColor.GOLD + sender.getName() + ChatColor.BLUE + " has removed one of your warnings! " + ChatColor.GOLD + "[" + warnings_player.size() + "]");
 		Player[] playerList = Bukkit.getServer().getOnlinePlayers();
 		for (Player player : playerList) {
 			if (player.hasPermission("warner.other.notify")) {
-				player.sendMessage(ChatColor.GOLD + target.getName() + ChatColor.BLUE + " has had a warning removed by " + ChatColor.GOLD + sender.getName() + ChatColor.BLUE + "." + ChatColor.GOLD + " [" + warnings_player.size() + "]");
+				player.sendMessage(ChatColor.GOLD + target + ChatColor.BLUE + " has had a warning removed by " + ChatColor.GOLD + sender.getName() + ChatColor.BLUE + "." + ChatColor.GOLD + " [" + warnings_player.size() + "]");
 			}
 		}
 		

@@ -49,7 +49,8 @@ public class Warncmd extends WarnCommandHandler {
     public static boolean run(CommandSender sender, String[] args, Warner warner) {
 
     	SLAPI slapi=warner.getSLAPI();
-        Player target = Bukkit.getServer().getPlayer(args[0]);
+    	Player targetPerm = Bukkit.getServer().getPlayer(args[0]);
+        String target = Bukkit.getServer().getPlayer(args[0]).getName();
         YamlConfiguration config = warner.getConfig();
 
         if (!sender.hasPermission("warner.warn.give")) {
@@ -57,8 +58,8 @@ public class Warncmd extends WarnCommandHandler {
             return false;
         }
 
-        if (target != null) {
-            if (target.hasPermission("warner.admin.warn.exempt")) {
+        if (targetPerm != null) {
+            if (targetPerm.hasPermission("warner.admin.warn.exempt")) {
                 sender.sendMessage(ChatColor.RED + "You can't warn this person!");
                 return false;
             }
@@ -85,7 +86,7 @@ public class Warncmd extends WarnCommandHandler {
             } else {
                 sender.sendMessage(ChatColor.RED + "You have to wait " + ChatColor.GOLD
                         + (20 - time_difference) + ChatColor.RED + " seconds until you can warn "
-                        + ChatColor.GOLD + target.getName() + ChatColor.RED + " again.");
+                        + ChatColor.GOLD + target + ChatColor.RED + " again.");
                 return false;
             }
 
@@ -100,21 +101,21 @@ public class Warncmd extends WarnCommandHandler {
             return false;
         }
 
-        target.sendMessage(ChatColor.GOLD + sender.getName() + ChatColor.BLUE
+        targetPerm.sendMessage(ChatColor.GOLD + sender.getName() + ChatColor.BLUE
                 + " has warned you for:\n" + ChatColor.GOLD + reason + ChatColor.BLUE + "."
                 + ChatColor.GOLD + " [" + warnings_player.size() + "]");
 
         Player[] playerList = Bukkit.getServer().getOnlinePlayers();
         for (Player player : playerList) {
             if (player.hasPermission("warner.other.notify")) {
-                player.sendMessage(ChatColor.GOLD + target.getName() + ChatColor.BLUE
+                player.sendMessage(ChatColor.GOLD + target + ChatColor.BLUE
                         + " has been warned by " + ChatColor.GOLD + sender.getName()
                         + ChatColor.BLUE + " for:\n" + ChatColor.GOLD + reason + ChatColor.BLUE
                         + "." + ChatColor.GOLD + " [" + warnings_player.size() + "]");
             }
         }
 
-        Punisher.punish(target, warnings_player.size(), reason, sender, config);
+        Punisher.punish(targetPerm, warnings_player.size(), reason, sender, config);
         return true;
     }
 

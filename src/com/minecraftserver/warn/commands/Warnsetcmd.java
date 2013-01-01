@@ -29,8 +29,7 @@ public class Warnsetcmd extends WarnCommandHandler {
     public static boolean run(CommandSender sender, String[] args, Warner warner) {
         YamlConfiguration config = warner.getConfig();
         SLAPI slapi = warner.getSLAPI();
-
-        Player target = (Bukkit.getServer().getPlayer(args[1]));
+        Player targetPerm = Bukkit.getServer().getPlayer(args[1]);
 
         if (!sender.hasPermission("warner.admin.warn.set")) {
             sender.sendMessage(ChatColor.DARK_RED + "You have insufficient permissions to do this.");
@@ -43,8 +42,8 @@ public class Warnsetcmd extends WarnCommandHandler {
             return false;
         }
 
-        if (target != null) {
-            if (target.hasPermission("warner.admin.warn.exempt")) {
+        if (targetPerm != null) {
+            if (targetPerm.hasPermission("warner.admin.warn.exempt")) {
                 sender.sendMessage(ChatColor.RED + "You can't warn this person!");
                 return false;
             }
@@ -59,7 +58,7 @@ public class Warnsetcmd extends WarnCommandHandler {
             sender.sendMessage(ChatColor.RED + ("No value is specified!"));
             return false;
         }
-
+        String target = targetPerm.getName();
         // Load player warnings
         warnings_player = slapi.loadPlayerWarnings(target, sender);
         if (warnings_player != null) {
@@ -84,10 +83,10 @@ public class Warnsetcmd extends WarnCommandHandler {
             return false;
         }
 
-        target.sendMessage(ChatColor.GOLD + sender.getName() + ChatColor.BLUE
+        targetPerm.sendMessage(ChatColor.GOLD + sender.getName() + ChatColor.BLUE
                 + " has set your warnings to:" + ChatColor.GOLD + " [" + warnings_player.size()
                 + "]");
-        Punisher.punish(target, warn_amount, reason, sender, config);
+        Punisher.punish(targetPerm, warn_amount, reason, sender, config);
         return true;
 
     }
