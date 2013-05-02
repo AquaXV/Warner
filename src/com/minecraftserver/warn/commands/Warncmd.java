@@ -7,6 +7,7 @@ import java.util.Vector;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
@@ -14,6 +15,9 @@ import org.bukkit.entity.Player;
 import com.minecraftserver.warn.Punisher;
 import com.minecraftserver.warn.SLAPI;
 import com.minecraftserver.warn.Warner;
+
+import ru.tehkode.permissions.PermissionUser;
+import ru.tehkode.permissions.bukkit.PermissionsEx;
 
 public class Warncmd extends WarnCommandHandler {
 		 
@@ -48,9 +52,18 @@ public class Warncmd extends WarnCommandHandler {
 
     public static boolean run(CommandSender sender, String[] args, Warner warner) {
 
-    	SLAPI slapi=warner.getSLAPI();
-    	Player targetPerm = Bukkit.getServer().getPlayer(args[0]);
-        String target = Bukkit.getServer().getPlayer(args[0]).getName();
+        SLAPI slapi=warner.getSLAPI();
+        
+        PermissionUser user = PermissionsEx.getUser(args[0]);
+        String target;
+    	Player targetOnline = (Bukkit.getServer().getPlayer(args[0]));
+        if (targetOnline == null) {
+            OfflinePlayer targetOffline = (Bukkit.getServer().getOfflinePlayer(args[0]));
+            target = targetOffline.getName();
+        } else {
+            String targetOnlineStr = (Bukkit.getServer().getPlayer(args[0]).getName());
+            target = targetOnlineStr;
+        }
         YamlConfiguration config = warner.getConfig();
 
         if (!sender.hasPermission("warner.warn.give")) {
@@ -58,8 +71,8 @@ public class Warncmd extends WarnCommandHandler {
             return false;
         }
 
-        if (targetPerm != null) {
-            if (targetPerm.hasPermission("warner.admin.warn.exempt")) {
+        if (target != null) {
+            if (user.has("warner.admin.warn.exempt")) {
                 sender.sendMessage(ChatColor.RED + "You can't warn this person!");
                 return false;
             }
@@ -67,7 +80,7 @@ public class Warncmd extends WarnCommandHandler {
                 reason = createString(args, 1);
             }
         } else {
-            sender.sendMessage(ChatColor.RED + args[0] + " was not found online!");
+            sender.sendMessage(ChatColor.RED + args[0] + " was not found!");
             return false;
         }
 
@@ -100,22 +113,29 @@ public class Warncmd extends WarnCommandHandler {
             sender.sendMessage(ChatColor.RED + "Error reading Playerfile!");
             return false;
         }
+        if (targetOnline != null){
+            targetOnline.sendMessage(ChatColor.GOLD + sender.getName()
+                    + ChatColor.BLUE + " has warned you for:\n"
+                    + ChatColor.GOLD + reason + ChatColor.BLUE + "."
+                    + ChatColor.GOLD + " [" + warnings_player.size() + "]");
 
-        targetPerm.sendMessage(ChatColor.GOLD + sender.getName() + ChatColor.BLUE
-                + " has warned you for:\n" + ChatColor.GOLD + reason + ChatColor.BLUE + "."
-                + ChatColor.GOLD + " [" + warnings_player.size() + "]");
-
+            
+        }
+        
         Player[] playerList = Bukkit.getServer().getOnlinePlayers();
         for (Player player : playerList) {
             if (player.hasPermission("warner.other.notify")) {
                 player.sendMessage(ChatColor.GOLD + target + ChatColor.BLUE
-                        + " has been warned by " + ChatColor.GOLD + sender.getName()
-                        + ChatColor.BLUE + " for:\n" + ChatColor.GOLD + reason + ChatColor.BLUE
-                        + "." + ChatColor.GOLD + " [" + warnings_player.size() + "]");
+                        + " has been warned by " + ChatColor.GOLD
+                        + sender.getName() + ChatColor.BLUE + " for:\n"
+                        + ChatColor.GOLD + reason + ChatColor.BLUE + "."
+                        + ChatColor.GOLD + " [" + warnings_player.size()
+                        + "]");
             }
         }
+        
+        Punisher.punish(target, warnings_player.size(), reason, sender, config);
 
-        Punisher.punish(targetPerm, warnings_player.size(), reason, sender, config);
         return true;
     }
 

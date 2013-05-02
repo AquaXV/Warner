@@ -21,6 +21,14 @@ public class SLAPI {
     	playerfolder = new File(dataFolder, File.separator + "player_warnings");
     }
     
+    public static boolean playerExists(String name){
+        File player = new File("plugins" + File.separator + "Essentials" + File.separator + "userdata" + File.separator + name.toLowerCase() + ".yml");
+        if (player.exists()){
+            return true;
+        }
+        return false;
+    }
+    
 	public List<String[]> loadPlayerWarnings(String target, CommandSender sender) {
 		try {
 			return load(playerfolder + File.separator + target + ".bin");

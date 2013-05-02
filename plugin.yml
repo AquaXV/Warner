@@ -2,7 +2,7 @@ name: Warner
 main: com.minecraftserver.warn.Warner
 description: Warn players with ease.
 author: AquaXV, M0P
-version: 3.1.6
+version: 3.3.4
 commands:
     warn:
 permissions:
@@ -20,9 +20,10 @@ permissions:
             warner.admin.reload: true
             warner.other.version: true
             warner.other.notify: true
-            warner.warn.kick: true
-            warner.warn.tempban: true
-            warner.warn.ban: true
+            warner.punish.jail: true
+            warner.punish.kick: true
+            warner.punish.tempban: true
+            warner.punish.ban: true
     warner.user.lookup.*:
         description: Grant all lookup commands (lookup)
         children:
@@ -66,7 +67,7 @@ permissions:
         default: op
     warner.user.lookup.self:
         description: Grants use to /warn lookup
-        default: op
+        default: true
     warner.user.lookup.other:
         description: Grants use to /warn lookup
         default: op
@@ -75,7 +76,7 @@ permissions:
         default: op
     warner.user.help:
         description: Grants use to /warn help
-        default: op
+        default: true
     warner.admin.warn.set:
         description: Grants use to /warn set
         default: op
@@ -90,7 +91,7 @@ permissions:
         default: op
     warner.other.version:
         description: Grants use to /warn version
-        default: op
+        default: true
     warner.other.notify:
         description: Shows all warnings to users with this permission node
         default: op

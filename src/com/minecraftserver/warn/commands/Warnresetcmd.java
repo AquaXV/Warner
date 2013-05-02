@@ -5,6 +5,7 @@ import java.util.Vector;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -17,7 +18,16 @@ public class Warnresetcmd {
 
     public static boolean run(CommandSender sender, String[] args, Warner warner) {
         SLAPI slapi = warner.getSLAPI();
-        Player targetPerm = Bukkit.getServer().getPlayer(args[1]);
+        
+        String target;
+        Player targetOnline = (Bukkit.getServer().getPlayer(args[1]));
+        if (targetOnline == null) {
+            OfflinePlayer targetOffline = (Bukkit.getServer().getOfflinePlayer(args[1]));
+            target = targetOffline.getName();
+        } else {
+            String targetOnlineStr = (Bukkit.getServer().getPlayer(args[1]).getName());
+            target = targetOnlineStr;
+        }
 
         if (!sender.hasPermission("warner.admin.warn.reset")) {
             sender.sendMessage(ChatColor.DARK_RED + "You have insufficient permissions to do this.");
@@ -29,7 +39,6 @@ public class Warnresetcmd {
             sender.sendMessage(ChatColor.RED + "/warn reset <user>");
             return false;
         }
-        String target = targetPerm.getName();
         // Load player warnings
         warnings_player = slapi.loadPlayerWarnings(target, sender);
         if (warnings_player != null) {
@@ -39,7 +48,7 @@ public class Warnresetcmd {
                         + ChatColor.BLUE + ".");
                 return false;
             }
-            sender.sendMessage(ChatColor.GOLD + target + ChatColor.BLUE + " has "
+            sender.sendMessage(ChatColor.GOLD + target + ChatColor.BLUE + " had "
                     + ChatColor.GOLD + warnings_player.size() + ChatColor.BLUE + " warnings.");
             warnings_player = new Vector<String[]>();
 
@@ -48,15 +57,16 @@ public class Warnresetcmd {
                 sender.sendMessage(ChatColor.RED + "Error writing Playerfile!");
                 return false;
             }
-            sender.sendMessage(ChatColor.GOLD + target + ChatColor.BLUE
-                    + " has been reset.");
+            sender.sendMessage(ChatColor.BLUE + "The warnings of " + ChatColor.GOLD + target + ChatColor.BLUE
+                    + " have been reset.");
         } else {
             sender.sendMessage(ChatColor.RED + "Error reading Playerfile!");
             return false;
         }
-
-        targetPerm.sendMessage(ChatColor.GOLD + sender.getName() + ChatColor.BLUE
-                + " has reset your warnings!");
+        if (targetOnline != null){
+            targetOnline.sendMessage(ChatColor.GOLD + sender.getName()
+                    + ChatColor.BLUE + " has reset your warnings!");
+        }
         return true;
     }
 

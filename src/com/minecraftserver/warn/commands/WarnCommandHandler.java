@@ -5,6 +5,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import com.minecraftserver.warn.SLAPI;
 import com.minecraftserver.warn.Warner;
 
 public class WarnCommandHandler {
@@ -30,7 +31,7 @@ public class WarnCommandHandler {
         }
         if (args.length == 0) {
             Warnhelpcmd.run(sender);
-        } else if (Bukkit.getServer().getPlayer(args[0]) != null) {
+        } else if ((Bukkit.getServer().getPlayer(args[0]) != null) || (SLAPI.playerExists(args[0]))) {
             Warncmd.run(sender, args, warner);
         } else if (args[0].equalsIgnoreCase("take")) {
             Warntakecmd.run(sender, args, warner);

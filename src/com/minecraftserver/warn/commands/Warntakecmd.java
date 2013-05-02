@@ -5,6 +5,7 @@ import java.util.Vector;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -19,7 +20,16 @@ public class Warntakecmd extends WarnCommandHandler {
 	public static boolean run(CommandSender sender, String[] args, Warner warner) {
 
 	    SLAPI slapi=warner.getSLAPI();
-		Player targetPerm = Bukkit.getServer().getPlayer(args[1]);
+	    
+        String target;
+        Player targetOnline = (Bukkit.getServer().getPlayer(args[1]));
+        if (targetOnline == null) {
+            OfflinePlayer targetOffline = (Bukkit.getServer().getOfflinePlayer(args[1]));
+            target = targetOffline.getName();
+        } else {
+            String targetOnlineStr = (Bukkit.getServer().getPlayer(args[1]).getName());
+            target = targetOnlineStr;
+        }
 		
 		if (!sender.hasPermission("warner.warn.take")) {
 			sender.sendMessage(ChatColor.DARK_RED + "You have insufficient permissions to do this.");
@@ -32,11 +42,6 @@ public class Warntakecmd extends WarnCommandHandler {
 			return false;
 		}
 		
-		if (targetPerm == null){
-			sender.sendMessage(ChatColor.GOLD + args[1] + ChatColor.RED +" was not found online.");
-			return false;
-		}
-		String target = targetPerm.getName();
 		// Load player warnings
 		warnings_player = slapi.loadPlayerWarnings(target, sender);
 		if (warnings_player != null) {
@@ -68,13 +73,20 @@ public class Warntakecmd extends WarnCommandHandler {
 			return false;
 		}
 		
-		targetPerm.sendMessage(ChatColor.GOLD + sender.getName() + ChatColor.BLUE + " has removed one of your warnings! " + ChatColor.GOLD + "[" + warnings_player.size() + "]");
-		Player[] playerList = Bukkit.getServer().getOnlinePlayers();
-		for (Player player : playerList) {
-			if (player.hasPermission("warner.other.notify")) {
-				player.sendMessage(ChatColor.GOLD + target + ChatColor.BLUE + " has had a warning removed by " + ChatColor.GOLD + sender.getName() + ChatColor.BLUE + "." + ChatColor.GOLD + " [" + warnings_player.size() + "]");
-			}
-		}
+		if (targetOnline != null){
+            targetOnline.sendMessage(ChatColor.GOLD + sender.getName()
+                    + ChatColor.BLUE + " has removed one of your warnings! "
+                    + ChatColor.GOLD + "[" + warnings_player.size() + "]");
+        }
+        Player[] playerList = Bukkit.getServer().getOnlinePlayers();
+        for (Player player : playerList) {
+            if (player.hasPermission("warner.other.notify")) {
+                player.sendMessage(ChatColor.GOLD + target + ChatColor.BLUE
+                        + " has had a warning removed by " + ChatColor.GOLD
+                        + sender.getName() + ChatColor.BLUE + "."
+                        + ChatColor.GOLD + " [" + warnings_player.size() + "]");
+            }
+        }
 		
 		return true;
 	}
